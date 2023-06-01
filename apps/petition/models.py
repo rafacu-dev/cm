@@ -16,7 +16,7 @@ class Petition(models.Model):
     def getImage(self):
         if self.image:
             if "petition" in str(self.image.url): 
-                image =  settings.ALLOWED_HOSTS[0] + self.image.url
+                image =  "https://" + settings.ALLOWED_HOSTS[0] + self.image.url
             else:
                 image =  str(self.image)
             return image
@@ -31,5 +31,5 @@ class StaticPetition(models.Model):
     
     def getImage(self):
         if self.image:
-            return settings.ALLOWED_HOSTS[0] + self.image.url
+            return "https://" + settings.ALLOWED_HOSTS[0] + self.image.url
         return ''

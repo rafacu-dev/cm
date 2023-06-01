@@ -25,5 +25,5 @@ class Shop(models.Model):
 
     def getImage(self):
         if self.image:
-            return settings.ALLOWED_HOSTS[0] + self.image.url
+            return "https://" + settings.ALLOWED_HOSTS[0] + self.image.url
         return '' 

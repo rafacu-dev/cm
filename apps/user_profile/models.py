@@ -20,7 +20,6 @@ class UserProfile(models.Model):
         if self.image:   
             #return self.image.url
             image_url = "https://" + settings.ALLOWED_HOSTS[0] + self.image.url
-            print("*******************************************************************", image_url)
             return str(image_url)
         return '' 
         

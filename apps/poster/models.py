@@ -16,7 +16,7 @@ class Poster(models.Model):
     def getImage(self):
         if self.image:
             if "poster" in str(self.image.url): 
-                image =  settings.ALLOWED_HOSTS[0] + self.image.url
+                image =  "https://" + settings.ALLOWED_HOSTS[0] + self.image.url
             else:
                 image =  str(self.image)
             return image
@@ -30,5 +30,5 @@ class StaticPoster(models.Model):
     
     def getImage(self):
         if self.image:
-            return settings.ALLOWED_HOSTS[0] + self.image.url
+            return "https://" + settings.ALLOWED_HOSTS[0] + self.image.url
         return '' 

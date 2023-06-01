@@ -36,7 +36,7 @@ class Product(models.Model):
     
     def getImages(self):
         images = []
-        domain = settings.ALLOWED_HOSTS[0]
+        domain = "https://" + settings.ALLOWED_HOSTS[0]
         if self.image1:
             images.append(domain + self.image1.url)
 
