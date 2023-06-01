@@ -9,7 +9,7 @@ ENVIRONMENT = env
 
 DOMAIN = "10.0.2.2:8000"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = "eaeu&=%zd=0=-o_ud--g76!=-l0!r8a2b!vw%5m37xif^_8h!s"
+SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','localhost']
@@ -17,30 +17,39 @@ ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','localhost']
 
 # Application definition
 
-DJANGO_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
-PROJECT_APPS=['apps.user','apps.user_profile']
-MARKET_APPS=['apps.payment','apps.shop','apps.petition','apps.poster','apps.product','apps.market','apps.shopping',
-'apps.proposal','apps.comments_product',]
-UTILS_APPS=['apps.map',]
-THIRD_PARTY_APPS=[
+    
+    'apps.user',
+    'apps.user_profile',
+
+    'apps.payment',
+    'apps.shop',
+    'apps.petition',
+    'apps.poster',
+    'apps.product',
+    'apps.market',
+    'apps.shopping',
+    'apps.proposal',
+    'apps.comments_product',
+    'apps.map',
+    
+
     'corsheaders',
     'rest_framework',
-    'djoser',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'djoser',
     #'social_django',
     #'ckeditor',
     #'ckeditor_uploader',
 ]
 
-INSTALLED_APPS= DJANGO_APPS + PROJECT_APPS + MARKET_APPS + UTILS_APPS + THIRD_PARTY_APPS
 
 
 
