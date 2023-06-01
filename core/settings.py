@@ -9,7 +9,7 @@ ENVIRONMENT = env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = True#'RENDER' not in os.environ
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','localhost']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -192,7 +192,7 @@ DJOSER = {
 }
 
 
-if  DEBUG:#not
+if not DEBUG:#
     EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
     SESSION_COOKIE_SECURE = True
