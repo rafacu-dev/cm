@@ -1,21 +1,22 @@
 import os, environ
+from pathlib import Path
 from datetime import timedelta
 
 
 env = environ.Env()
 environ.Env.read_env()
-
 ENVIRONMENT = env
 
 DOMAIN = "10.0.2.2:8000"
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','localhost']
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS=[RENDER_EXTERNAL_HOSTNAME,]
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -51,11 +52,6 @@ INSTALLED_APPS = [
 ]
 
 
-
-
-WSGI_APPLICATION = 'core.wsgi.application'
-#ASGI_APPLICATION = "core.asgi.application"
-
 MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -87,6 +83,9 @@ TEMPLATES = [
     },
 ]
 
+
+WSGI_APPLICATION = 'core.wsgi.application'
+#ASGI_APPLICATION = "core.asgi.application"
 
 DATABASES = {
     'default': {
@@ -137,15 +136,9 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace("\ "[0],"/")
 MEDIA_URL = '/media/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
-]
-
+MEDIA_ROOT = BASE_DIR / 'media'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -159,11 +152,11 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    #'social_core.backends.google.GoogleOAuth2',
-    #'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
+AUTH_USER_MODEL="user.UserAccount"
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', ),
@@ -175,8 +168,6 @@ SIMPLE_JWT = {
         'rest_framework_simplejwt.tokens.AccessToken',
     )
 }
-
-
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -202,16 +193,28 @@ DJOSER = {
 }
 
 
-AUTH_USER_MODEL="user.UserAccount"
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+if not DEBUG:#
+    EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
-"""
+    SESSION_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_REDIRECT_EXEMPT = []
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-if not DEBUG:
-    DEFAULT_FROM_EMAIL = 'Vudera - Academia de Software <mail@vudera.com>'
-    EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = env('EMAIL_HOST')
-    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-    EMAIL_PORT = env('EMAIL_PORT')
-    EMAIL_USE_TLS = env('EMAIL_USE_TLS')"""
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+
+else:
+    SESSION_COOKIE_SECURE = False
+    SECURE_BROWSER_XSS_FILTER = False
+    SECURE_CONTENT_TYPE_NOSNIFF = False
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+    EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
