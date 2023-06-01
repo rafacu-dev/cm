@@ -159,8 +159,8 @@ EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', ),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10080),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=90),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=120),
     'ROTATE_REFRESFH_TOKENS':True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_TOKEN_CLASSES': (
