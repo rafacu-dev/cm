@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from rest_framework import serializers
 from apps.product.serializers import ProductSerializer
 from apps.user_profile.models import UserProfile
@@ -105,7 +104,7 @@ class SaleSerializer(serializers.ModelSerializer):
         if obj.product:
             product = ProductSerializer(obj.product).data
             return product
-        return NULL
+        return None
 
     def getUser(self,obj):
         user_profile = UserProfile.objects.get(user=obj.user)
