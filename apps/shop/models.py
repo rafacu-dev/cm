@@ -5,8 +5,6 @@ from django.conf import settings
 from apps.user_profile.models import UserProfile
 from apps.user_profile.serializers import UserProfileSerializer
 
-domain = settings.DOMAIN
-
 
 class Shop(models.Model):
     id = models.AutoField(primary_key=True)
@@ -27,5 +25,5 @@ class Shop(models.Model):
 
     def getImage(self):
         if self.image:
-            return "http://" + domain + self.image.url
+            return settings.ALLOWED_HOSTS[0] + self.image.url
         return '' 

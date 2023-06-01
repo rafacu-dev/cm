@@ -1,10 +1,7 @@
 from django.db import models
 from apps.shop.models import Shop
 from django.conf import settings
-
 from apps.user.models import User
-
-domain = settings.DOMAIN
 
 
 
@@ -39,20 +36,21 @@ class Product(models.Model):
     
     def getImages(self):
         images = []
+        domain = settings.ALLOWED_HOSTS[0]
         if self.image1:
-            images.append("http://" + domain + self.image1.url)
+            images.append(domain + self.image1.url)
 
         if self.image2:
-            images.append("http://" + domain + self.image2.url)
+            images.append(domain + self.image2.url)
 
         if self.image3:
-            images.append("http://" + domain + self.image3.url)
+            images.append(domain + self.image3.url)
 
         if self.image4:
-            images.append("http://" + domain + self.image4.url)
+            images.append(domain + self.image4.url)
 
         if self.image5:
-            images.append("http://" + domain + self.image5.url)
+            images.append(domain + self.image5.url)
         return images
 
 

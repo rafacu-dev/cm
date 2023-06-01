@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 User = settings.AUTH_USER_MODEL
-domain = settings.DOMAIN
 
 class UserProfile(models.Model):
     id = models.AutoField(primary_key=True)
@@ -20,7 +19,7 @@ class UserProfile(models.Model):
     def getImage(self):
         if self.image:   
             #return self.image.url
-            return "http://" + domain + self.image.url
+            return settings.ALLOWED_HOSTS[0] + self.image.url
         return '' 
         
     def getUserId(self):

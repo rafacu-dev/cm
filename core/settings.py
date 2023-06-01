@@ -7,7 +7,6 @@ env = environ.Env()
 environ.Env.read_env()
 ENVIRONMENT = env
 
-DOMAIN = "10.0.2.2:8000"
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'RENDER' not in os.environ
