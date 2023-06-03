@@ -7,12 +7,12 @@ from .models import CommentsProduct
 class CommentsProductSerializer(serializers.ModelSerializer):
     remitter = serializers.SerializerMethodField('getRemitter')
     remitter_image = serializers.SerializerMethodField('getRemitterImage')
+    date = serializers.SerializerMethodField('getDate')
 
     class Meta:
         model = CommentsProduct
         fields = (
             "id",
-            "remitter",
             "remitter",
             "remitter_image",
             "text",
@@ -20,6 +20,8 @@ class CommentsProductSerializer(serializers.ModelSerializer):
             "date"
         )
 
+    def getDate(self,obj):
+        return obj.date.strftime("%y%m%d%H%M%S")
 
     def getRemitter(self,obj):
         if obj.user == obj.product.shop.user:

@@ -33,7 +33,8 @@ class GetMarketView(APIView):
             if not search:
                 search = ""
 
-            category_filters = ["Clothing","Technology","Food","Toys","Furniture","Utensil","Art","Cosmetics","Pets","Medications"]
+            category_filters = ["Food","Technology","Gift","Toys","Medications","Utensil","Furniture","Clothing","Art","Cosmetics","Pets"]
+
             
             list_market = []
             list_recomended_shops = []
@@ -67,7 +68,7 @@ class GetMarketView(APIView):
                             poster = PosterSerializer(poster).data
                             poster["distance"] = distance
                                                             
-                            #list_market.append({"poster":poster})
+                            list_market.append({"poster":poster})
 
                     if  search == "" or search.lower() in str(shop.name).lower():   #Esto es para determinar si retornar esta tienda
                         data_shop = ShopSerializer(shop).data

@@ -24,7 +24,7 @@ class Product(models.Model):
 
     stock = models.FloatField()
     unit = models.IntegerField()
-    category = models.IntegerField()
+    category = models.IntegerField()   #["Food","Technology","Gift","Toys","Medications","Utensil","Furniture","Clothing","Art","Cosmetics","Pets"]
     colors = models.TextField(blank = True, null = True)
     sizes = models.TextField(blank = True, null = True)
     tastes = models.TextField(blank = True, null = True)

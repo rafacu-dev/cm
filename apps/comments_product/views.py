@@ -22,7 +22,7 @@ class CommentsProductView(APIView):
             for comment in comments:
                 comment = CommentsProductSerializer(comment).data
                 list_comments.insert(0,comment)
-                
+            print(list_comments)
             return Response(
                 {'comments': list_comments},
                 status=status.HTTP_200_OK
