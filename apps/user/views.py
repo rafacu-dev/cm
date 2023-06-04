@@ -27,6 +27,7 @@ class UserVerify(TokenViewBase):
                
         try:
             code = int(data['code'])
+            print(code)
             code_confirm = CheckCode.objects.get(user=user,code_confirm=code)
             user.is_staff = True
             user.save()
