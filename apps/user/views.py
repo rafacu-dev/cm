@@ -20,6 +20,7 @@ class UserVerify(TokenViewBase):
             user_email = data['email']
             user = UserAccount.objects.get(email=user_email)
         except:
+            print("Usuario no existe")
             return Response(
                 {'error': 'Usuario no existe'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -44,6 +45,7 @@ class UserVerify(TokenViewBase):
             profile.save()
 
         except:
+            print("El codigo de confirmación no coincide")
             return Response(
                 {'error': 'El codigo de confirmación no coincide'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -54,6 +56,7 @@ class UserVerify(TokenViewBase):
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
             
         except:
+            print("Ha ocurrido un error inesperado")
             return Response(
                 {'error': 'Ha ocurrido un error inesperado'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
