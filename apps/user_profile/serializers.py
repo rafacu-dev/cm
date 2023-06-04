@@ -16,7 +16,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "address",
             "phone",
             "email",
-            "web",
+            "messenger",
             "whatsapp",
             "telegram"
         ]

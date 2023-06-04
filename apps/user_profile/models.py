@@ -10,11 +10,12 @@ class UserProfile(models.Model):
     latitude = models.FloatField(blank = True,null = True)
     longitude = models.FloatField(blank = True,null = True)
     address = models.TextField(default="")
+
     phone = models.CharField(max_length=255, default='')
     email = models.EmailField(default='')
-    web = models.URLField(default='')
-    whatsapp = models.CharField(max_length=20, default='')
-    telegram = models.CharField(max_length=20, default='')
+    messenger = models.CharField(max_length=100, default='')
+    whatsapp = models.CharField(max_length=100, default='')
+    telegram = models.CharField(max_length=100, default='')
 
     def getImage(self):
         if self.image:   

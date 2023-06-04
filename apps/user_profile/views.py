@@ -68,7 +68,7 @@ class UpdateUserProfileView(APIView):
 
             phone = gson_to_string(data['phone'])
             email = gson_to_string(data['email'])
-            web = gson_to_string(data['web'])
+            messenger = gson_to_string(data['messenger'])
             whatsapp = gson_to_string(data['whatsapp'])
             telegram = gson_to_string(data['telegram'])
 
@@ -79,7 +79,7 @@ class UpdateUserProfileView(APIView):
                 address = address,
                 phone = phone,
                 email = email,
-                web = web,
+                messenger = messenger,
                 whatsapp = whatsapp,
                 telegram = telegram
             )
@@ -158,14 +158,14 @@ class UploadContactUserProfileView(APIView):
 
             phone = gson_to_string(data['phone'])
             email = gson_to_string(data['email'])
-            web = gson_to_string(data['web'])
+            messenger = gson_to_string(data['messenger'])
             whatsapp = gson_to_string(data['whatsapp'])
             telegram = gson_to_string(data['telegram'])
 
             UserProfile.objects.filter(user=user).update(
                 phone = phone,
                 email = email,
-                web = web,
+                messenger = messenger,
                 whatsapp = whatsapp,
                 telegram = telegram
             )

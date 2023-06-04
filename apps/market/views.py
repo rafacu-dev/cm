@@ -41,7 +41,7 @@ class GetMarketView(APIView):
             
             shops = Shop.objects.filter(open = True).exclude(user = userAccount)
 
-            for shop in shops:                
+            for shop in shops:
                 if shop.poster_set.exists() or shop.product_set.exists():
                     distance = str(calculate_distance(user.longitude,user.latitude,shop.longitude,shop.latitude)) + " km"
 
