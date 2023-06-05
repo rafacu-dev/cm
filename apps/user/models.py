@@ -16,6 +16,7 @@ class UserAccountManager(BaseUserManager):
         user.set_password(password)
         user.save()
         
+
         code_confirm = str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9))
         code_confirm = 11111
         register_code = CheckCode.objects.create(user = user, code_confirm = code_confirm)
