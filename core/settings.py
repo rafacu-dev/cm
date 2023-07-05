@@ -1,6 +1,8 @@
-import os, environ
+import os
+import dj_database_url
 from pathlib import Path
 from datetime import timedelta
+import environ
 
 
 env = environ.Env()
@@ -25,19 +27,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'apps.user',
-    'apps.user_profile',
+    'user',
+    'user_profile',
 
-    'apps.payment',
-    'apps.shop',
-    'apps.petition',
-    'apps.poster',
-    'apps.product',
-    'apps.market',
-    'apps.shopping',
-    'apps.proposal',
-    'apps.comments_product',
-    'apps.map',
+    'payment',
+    'shop',
+    'petition',
+    'poster',
+    'product',
+    'market',
+    'shopping',
+    'proposal',
+    'comments_product',
+    'map',
     
 
     'corsheaders',
@@ -54,7 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -85,13 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 #ASGI_APPLICATION = "core.asgi.application"
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
@@ -157,6 +152,8 @@ AUTHENTICATION_BACKENDS = (
 AUTH_USER_MODEL="user.UserAccount"
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', ),
     'ACCESS_TOKEN_LIFETIME': timedelta(days=90),
@@ -184,9 +181,9 @@ DJOSER = {
     #'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     #'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/google', 'http://localhost:8000/facebook'],
     'SERIALIZERS': {
-        'user_create': 'apps.user.serializers.UserCreateSerializer',
-        'user': 'apps.user.serializers.UserCreateSerializer',
-        'current_user': 'apps.user.serializers.UserCreateSerializer',
+        'user_create': 'user.serializers.UserCreateSerializer',
+        'user': 'user.serializers.UserCreateSerializer',
+        'current_user': 'user.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
 }
@@ -207,8 +204,17 @@ if not DEBUG:#
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
     SESSION_COOKIE_SECURE = False
     SECURE_BROWSER_XSS_FILTER = False
     SECURE_CONTENT_TYPE_NOSNIFF = False
@@ -217,3 +223,47 @@ else:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
     EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+
+
+
+"""
+
+argon2-cffi==21.1.0
+asgiref==3.6.0
+certifi==2022.12.7
+cffi==1.15.1
+charset-normalizer==2.1.1
+coreapi==2.3.3
+coreschema==0.0.4
+cryptography==38.0.4
+defusedxml==0.7.1
+
+
+django-cors-headers==3.7.0
+django-environ==0.9.0
+django-templated-mail==1.1.1        
+djangorestframework==3.13.1
+djangorestframework-simplejwt==4.8.0
+djoser==2.1.0
+environ==1.0
+geographiclib==2.0
+geopy==2.3.0
+googlemaps==4.7.3
+idna==3.4
+itypes==1.2.0
+Jinja2==3.1.2
+MarkupSafe==2.1.1
+oauthlib==3.2.2
+Pillow==9.1.1
+pycparser==2.21
+PyJWT==2.6.0
+python3-openid==3.2.0
+requests==2.28.1
+requests-oauthlib==1.3.1
+six==1.16.0
+social-auth-app-django==4.0.0
+social-auth-core==4.3.0
+sqlparse==0.4.3
+uritemplate==4.1.1
+urllib3==1.26.13"""
