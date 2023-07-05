@@ -228,7 +228,6 @@ else:
 
 
 """
-
 argon2-cffi==21.1.0
 asgiref==3.6.0
 certifi==2022.12.7
