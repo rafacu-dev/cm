@@ -22,7 +22,9 @@ def sendNotificationTelegram(user,messaje):
         # Pedimos el código de inicio de sesión que haya enviado Telegram al usuario
         try:
             if "sesionCode" in os.environ:
-                clienteTelegram.sign_in(numeroTelefono, os.environ.get('sesionCode'))
+                sesionCode = os.environ.get('sesionCode')
+                print("sesionCode: ",sesionCode)
+                clienteTelegram.sign_in(numeroTelefono, sesionCode)
             else:
                 clienteTelegram.send_code_request(numeroTelefono)
                 clienteTelegram.sign_in(numeroTelefono, input('Introduzca el Código de inicio de sesión: '))
