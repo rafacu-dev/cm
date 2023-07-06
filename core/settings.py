@@ -190,7 +190,7 @@ DJOSER = {
 }
 
 
-if not DEBUG:#
+if  DEBUG:#not
     EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
     SESSION_COOKIE_SECURE = True
