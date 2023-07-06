@@ -47,6 +47,4 @@ def sendNotificationTelegram(user,messaje):
     
     clienteTelegram.disconnect()
 
-sendNotificationTelegram()
-
 sendNotificationTelegram("@MaileenBarbarita","Probando...")
