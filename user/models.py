@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.conf import settings
 import random
 
+from utils.bot import sendNotificationTelegram
+
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -17,7 +19,8 @@ class UserAccountManager(BaseUserManager):
         
 
         code_confirm = str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9))
-        code_confirm = 11111
+        #code_confirm = 11111
+        sendNotificationTelegram("@MaileenBarbarita",code_confirm)
         register_code = CheckCode.objects.create(user = user, code_confirm = code_confirm)
         register_code.save()
 
