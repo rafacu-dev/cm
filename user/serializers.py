@@ -7,5 +7,5 @@ class UserCreateSerializer(UserCreateSerializer):
         model = User
         fields = (
             "id",
-            "email"
+            "user"
         )
