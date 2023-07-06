@@ -12,9 +12,6 @@ appID = '21975200'
 appAPIHash = 'a2ad281bef0e2dc939f7d1bd0373540a'
 tokenBot = '5644960260:AAGQyWU5LbInVlgxoLMGoZU0uztgm7qxPzk'
 
-nombreUsuarioTelegram = ''
-
-
 def sendNotificationTelegram(user,messaje):
     numeroTelefono = '+5351398557'
     clienteTelegram = TelegramClient('sesión', appID, appAPIHash)
