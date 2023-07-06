@@ -60,3 +60,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Config(models.Model):
+    key = models.CharField(max_length=50, blank = False, null = False,unique=True)
+    value = models.CharField(max_length=100, blank = False, null = False)

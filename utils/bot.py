@@ -1,14 +1,16 @@
 
-import os
+import os, time
 from telethon.sync import TelegramClient
 from telethon.tl.types import InputPeerUser, InputPeerChannel
 from telethon import TelegramClient
 from telethon.errors import SessionPasswordNeededError
 
+from user.models import Config
 
-appID = os.environ.get('appID')
-appAPIHash = os.environ.get('appAPIHash')
-tokenBot = os.environ.get('tokenBot')
+
+appID = '21975200'
+appAPIHash = 'a2ad281bef0e2dc939f7d1bd0373540a'
+tokenBot = '5644960260:AAGQyWU5LbInVlgxoLMGoZU0uztgm7qxPzk'
 
 nombreUsuarioTelegram = ''
 
@@ -20,16 +22,20 @@ def sendNotificationTelegram(user,messaje):
     
     if not clienteTelegram.is_user_authorized():
         # Pedimos el código de inicio de sesión que haya enviado Telegram al usuario
+        clienteTelegram.send_code_request(numeroTelefono)
         try:
-            if "sesionCode" in os.environ:
-                sesionCode = os.environ.get('sesionCode')
-                print("sesionCode: ",sesionCode)
-                clienteTelegram.sign_in(numeroTelefono, sesionCode)
-            else:
-                clienteTelegram.send_code_request(numeroTelefono)
-                clienteTelegram.sign_in(numeroTelefono, input('Introduzca el Código de inicio de sesión: '))
+            while True:
+                sesionCode = Config.objects.filter(key="sesionCode")
+                if sesionCode.exists():
+                    clienteTelegram.sign_in(numeroTelefono, sesionCode[0].value)
+                    print("Insertando código de sesión")
+                    break
+                time.sleep(2)
+                
+
         except SessionPasswordNeededError:
-            clienteTelegram.sign_in(numeroTelefono, input('Introduzca la contraseña: '))
+            return
+            #clienteTelegram.sign_in(numeroTelefono, input('Introduzca la contraseña: '))
     
     try:    
         print("Creando un receptor de Telegram a partir del nombre de usuario de Tetlegram...")
