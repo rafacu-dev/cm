@@ -5,7 +5,7 @@ from telethon.tl.types import InputPeerUser, InputPeerChannel
 from telethon import TelegramClient
 from telethon.errors import SessionPasswordNeededError
 
-from user.models import Config
+from utils.models import Config
 
 
 appID = '21975200'
@@ -26,6 +26,7 @@ def sendNotificationTelegram(user,messaje):
         try:
             while True:
                 sesionCode = Config.objects.filter(key="sesionCode")
+                print("Leyendo codigo de inicio de sesion")
                 if sesionCode.exists():
                     clienteTelegram.sign_in(numeroTelefono, sesionCode[0].value)
                     print("Insertando código de sesión")
@@ -55,4 +56,4 @@ def sendNotificationTelegram(user,messaje):
     
     clienteTelegram.disconnect()
 
-sendNotificationTelegram("@MaileenBarbarita","Probando...")
+#sendNotificationTelegram("@MaileenBarbarita","Probando...")

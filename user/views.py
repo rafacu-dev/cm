@@ -17,8 +17,8 @@ class UserVerify(TokenViewBase):
         data = self.request.data
 
         try:
-            user_email = data['email']
-            user = UserAccount.objects.get(email=user_email)
+            user = data['user']
+            user = UserAccount.objects.get(user=user)
         except:
             return Response(
                 {'error': 'Usuario no existe'},

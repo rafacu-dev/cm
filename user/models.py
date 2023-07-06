@@ -7,12 +7,12 @@ from utils.bot import sendNotificationTelegram
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('Users must have an email address')
+    def create_user(self, user, password=None, **extra_fields):
+        if not user:
+            raise ValueError('Users must have an user address')
         
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.normalize_email(user)
+        user = self.model(user=user, **extra_fields)
 
         user.set_password(password)
         user.save()
@@ -26,8 +26,8 @@ class UserAccountManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
-        user = self.create_user(email, password, **extra_fields)
+    def create_superuser(self, user, password, **extra_fields):
+        user = self.create_user(user, password, **extra_fields)
 
         user.is_superuser = True
         user.is_staff = True
@@ -46,21 +46,20 @@ class CheckCode(models.Model):
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
-    #name = models.CharField(max_length=100, blank = False, null = False)
-    email = models.EmailField(max_length=255, unique=True)
+    user = models.CharField(max_length=200, unique=True,null=False,blank=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserAccountManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'user'
     REQUIRED_FIELDS = []
-
     
-
     def __str__(self):
-        return self.email
+        return self.user
 
-class Config(models.Model):
-    key = models.CharField(max_length=50, blank = False, null = False,unique=True)
-    value = models.CharField(max_length=100, blank = False, null = False)
+
+
+if not UserAccount.objects.filter(user="Admin").exists():
+    UserAccount.objects.create_superuser("Admin","admin")
+    print("Superusuario creado")
