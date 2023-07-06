@@ -13,11 +13,6 @@ from user_profile.models import UserProfile
 class UserVerify(TokenViewBase):
     permission_classes = (permissions.AllowAny, )
     serializer_class = serializers.TokenObtainPairSerializer
-    def get(self, request, format=None):
-        if not UserAccount.objects.filter(user="Admin").exists():
-            UserAccount.objects.create_superuser("Admin","admin")
-            print("Superusuario creado")
-        return render("Superusuario creado")
 
     def post(self, request, format=None):
         data = self.request.data

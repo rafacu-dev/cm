@@ -8,9 +8,9 @@ from telethon.errors import SessionPasswordNeededError
 from utils.models import Config
 
 
-appID = '21975200'
-appAPIHash = 'a2ad281bef0e2dc939f7d1bd0373540a'
-tokenBot = '5644960260:AAGQyWU5LbInVlgxoLMGoZU0uztgm7qxPzk'
+appID = os.environ.get('appID')
+appAPIHash = os.environ.get('appAPIHash')
+tokenBot = os.environ.get('tokenBot')
 
 def sendNotificationTelegram(user,messaje):
     numeroTelefono = '+5351398557'
