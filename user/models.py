@@ -60,6 +60,6 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
 
 
-if not UserAccount.objects.filter(user="Admin").exists():
+"""if not UserAccount.objects.filter(user="Admin").exists():
     UserAccount.objects.create_superuser("Admin","admin")
-    print("Superusuario creado")
+    print("Superusuario creado")"""
