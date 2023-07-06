@@ -1,5 +1,4 @@
 from django.db import models
-from user_profile.models import UserProfile
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.conf import settings
 import random
