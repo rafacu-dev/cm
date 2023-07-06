@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'utils',
     'user',
     'user_profile',
 
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'proposal',
     'comments_product',
     'map',
-    'utils',
     
 
     'corsheaders',
