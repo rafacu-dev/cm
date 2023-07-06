@@ -16,6 +16,7 @@ class UserAccountManager(BaseUserManager):
 
         user.set_password(password)
         user.save()
+        print("creando usuario")
         
 
         code_confirm = str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9)) + str(random.randint(0,9))
